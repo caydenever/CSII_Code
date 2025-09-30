@@ -1,3 +1,11 @@
+'''
+Author: Cayden Ever
+Sources: Google, Mr. Campbell, ASCII Keys Table
+Description: Set of functions that do different things to a string (name)
+Date: 9/30/25
+Bugs: none
+'''
+
 import random   #import random library
 def reverse_reverse_display(name):
     '''
