@@ -3,8 +3,11 @@ Author: Cayden Ever
 Sources: Google, Mr. Campbell, ASCII Keys Table
 Description: Set of functions that do different things to a string (name)
 Date: 9/30/25
-Bugs: none
+Bugs: My encryption function doesn't work on numbers only on letters. first name does not remove titles like Dr.
 '''
+from collections import Counter 
+import re 
+#importing the counter library for only my personal choice function
 
 import random   #import random library
 def reverse_reverse_display(name):
@@ -72,7 +75,7 @@ def get_first_name(name):
         name(str): inputed text
     Returns:
         text until the first space in the str
-    ''' 
+    '''  
     first_space = 0  #set the first space to 0
     for i in range (0,len(name)-1):             #go from the begginning
         if name [i] == " ":            #if you hit a space
@@ -80,6 +83,7 @@ def get_first_name(name):
         else: 
             first_space += 1 #add one to the first space var
     return name[: first_space] #return the text but stop at the first space
+
 def get_middle_names(name):
     '''
     Extracts middle names
@@ -214,7 +218,7 @@ def my_split(name):
     return parts     
 
 def selection_sort(name):
-    """
+    '''
     Sorts a list using the Selection Sort algorithm and returns a new sorted list.
     Does not modify the original list.
 
@@ -223,7 +227,7 @@ def selection_sort(name):
     Returns:
         text sorted by ordinal starting with special characters then the alphabet.
             
-    """
+    '''
     if not name:
         return []
 
@@ -244,26 +248,33 @@ def selection_sort(name):
     return sorted_list
 
 def extract_initials(name):
+    '''
+    Extracts the first initials of each word
+    Args:
+        name (str): input
+    Returns:
+        each initials seperated by periods.
+    '''
 
-  elements = my_split(name)
+    elements = my_split(name)
 
-  if len(elements) < 3 :
-    fi = get_first_name(name)
-    fi = fi[0]
-    li = get_last_name(name)
-    li = li[0]
+    if len(elements) < 3 :
+        fi = get_first_name(name)
+        fi = fi[0]
+        li = get_last_name(name)
+        li = li[0]
 
-    output = fi + "." + li
-  else:
-    fi = get_first_name(name)
-    fi = fi[0]
-    mi = get_middle_names(name)
-    mi = mi[0]
-    li = get_last_name(name)
-    li = li[0]
+        output = fi + "." + li
+    else:
+        fi = get_first_name(name)
+        fi = fi[0]
+        mi = get_middle_names(name)
+        mi = mi[0]
+        li = get_last_name(name)
+        li = li[0]
 
-    output = fi + "." + mi  + "." + li + "."
-  return output
+        output = fi + "." + mi  + "." + li + "."
+    return output
 
 def has_description(name):
   '''
@@ -325,13 +336,34 @@ def decrypt(name, shift):
     '''
     return encrypt(name, -shift) #just doing the encrypt in the opposite order therefroe decrypting.
 
+def count_word_frequency(name):
+    '''
+    Counts the frequency of each word in a given text.
+
+    Args:
+        name (str): The input string of text.
+
+    Returns:
+        frequency: A dictionary where keys are words and values are their frequencies.
+    '''
+    # Convert name to lower and remove punctuation
+    cleaned_text = re.sub(r'[^\w\s]', '', name).lower()
+
+    # Split the text into words using .split
+    words = cleaned_text.split()
+
+    # Use Counter that I imported to count word frequencies
+    word_counts = Counter(words)
+
+    return word_counts #return the word counts properly formated
+
 def main():
     """
     Main Function
     """
     while True:
         name = input("Welcome to the bank of functions! Please enter your name or a word: ")
-        choice = input('''Which function would you like to prefrom: 
+        choice = input('''Which function would you like to perform: 
                        q. quit the program
                        1. Reverse your word/name 
                        2. Count the vowels in your word/name 
@@ -348,6 +380,7 @@ def main():
                        13. Extract initials
                        14. Check for titles like Dr., Mrs., etc...
                        15. Encrypt and decrypt your text to keep it seceret.
+                       16. Count the frequency of each word in your text
                        '''
                        )
         if choice == "q":
@@ -393,6 +426,11 @@ def main():
                 print (f"your text decrypted is {decrypt(encrypted_text, shift)}")
             else:
                 break
+        elif choice == "16":
+            frequency = count_word_frequency(name)
+            print(f"the frequency of each word in your text is {frequency}")
+        else:
+            print("not a valid input. Please try again.")
                 
         
 
