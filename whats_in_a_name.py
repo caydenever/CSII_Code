@@ -258,7 +258,12 @@ def extract_initials(name):
 
     elements = my_split(name)
 
-    if len(elements) < 3 :
+    if len(elements) < 2 :
+        fi = get_first_name(name)
+        fi = fi[0]
+
+        output = fi
+    elif len(elements) < 3 :
         fi = get_first_name(name)
         fi = fi[0]
         li = get_last_name(name)
