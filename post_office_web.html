@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Office Calculations</title>
+  <script>
+    // This function takes in the length, height, width, and thickness
+    function main() {
+      // Get values from the input fields from html
+      let l = document.getElementById("l").value;
+      let h = document.getElementById("h").value;
+      let w = document.getElementById("w").value;
+      let your_zip = document.getElementById("your_zip").value;
+      let delivery_zip = document.getElementById("delivery_zip").value;
+
+      // Convert the values to numbers (since inputs are strings by default)
+      length = parseFloat(l);
+      height = parseFloat(h);
+      width = parseFloat(w);
+      your_zip = parseInt(your_zip);
+      delivery_zip = parseInt(delivery_zip);
+
+      // get the zone of the zipcodes
+      zip1 = get_zip(your_zip)
+      zip2 = get_zip(delivery_zip)
+      // get the distance in between the zipcode zones
+      total_distance = Math.abs(zip2 - zip1)
+      // get the type of the package
+      package_type = get_size(l,h,w)
+      // calculate cost
+      cost = calculate_cost(total_distance, package_type)
+      
+      // Display the result inside the <p> tag
+      // If the package is unmailable
+      if (cost == "UNMAILABLE") {
+        // display cost
+          document.getElementById("result").innerText = cost;}
+      else {
+      // a javascript way to only equal two decimals without the 0
+        cost = cost.toFixed(2).replace(/^0/, '');
+
+      }
+      document.getElementById("result").innerText = cost
+    }
+function get_size(l,h,w) {
+  /*
+    Gets the type of package based on dimensions
+
+    Args:
+        l (number)
+        h (number)
+        w (number)
+    Returns:
+        type (number) based on what the l, w, h fits in.
+  */
+
+  let type = 0;
+  // 1 = regular postcard 
+  // 2 = large poster card 
+  // 3 = envelope
+  // 4 = large envelope 
+  // 5 = package 
+  // 6 = large package 
+  // 0 = unmailable
+
+  if (l >= 3.5 && l <= 4.25 && h >= 3.5 && h <= 6 && w >= 0.007 && w <= 0.016) {
+    type = 1;
+  } else if (l >= 4.25 && l <= 6 && h >= 6 && h <= 11.5 && w >= 0.007 && w <= 0.015) {
+    type = 2;
+  } else if (l >= 3.5 && l <= 6.125 && h >= 5 && h <= 11.5 && w >= 0.016 && w <= 0.25) {
+    type = 3;
+  } else if (l >= 6.125 && l <= 24 && h >= 11 && h <= 18 && w >= 0.25 && w <= 0.5) {
+    type = 4;
+  } else if (l > 24 && h > 18 && w > 0.5 && (l + 2 * h + 2 * w) <= 84) {
+    type = 5;
+  } else if ((l + 2 * h + 2 * w) > 84 && (l + 2 * h + 2 * w) <= 130) {
+    type = 6;
+  } else {
+    type = 0;
+  }
+
+  return type;
+
+}
+
+function get_zip(zip){ 
+  if (zip > 1 && zip < 6999){
+    return 1
+  }
+  else if (zip > 7000 && zip < 19999){
+    return 2;
+  }
+  else if (zip > 20000 && zip < 35999){
+    return 3;
+  }
+  else if (zip > 36000 && zip < 62999){
+    return 4;
+  }
+  else if (zip > 63000 && zip < 84999){
+    return 5;
+  }
+  else if (zip > 85000 && zip < 99999){
+    return 6;
+  }
+ 
+  else{
+    return 0;
+  }
+}
+
+function calculate_cost(distance,package_type){
+  /*
+   Calculates cost based on distance and package_type.
+
+    Args:
+        distance(number)
+        package type(number)
+    Returns:
+        cost(number)
+  */
+  let cost = 0
+
+  if (package_type == 1){
+      cost +=.20;
+      cost+= distance*.03;
+    }
+  else if(package_type == 2){
+        cost +=.37;
+        cost += distance*.03;}
+  //if package is an envelope
+  else if(package_type == 3){
+      cost += .37;
+      cost += distance*.04;}
+  //if package is a large envelope
+  else if(package_type == 4){
+      cost += .60;
+      cost += distance*.05;}
+  //if package is a package
+  else if(package_type == 5){
+      cost += 2.95;
+      cost += distance*.25;}
+  //if package is a large package
+  else if(package_type == 6){
+      cost += 3.95;
+      cost += distance*.35;}
+  //if it fits none of the types
+  else {
+    return ("UNMAILABLE")
+  }
+  return cost
+}
+ 
+</script>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.js"></script> 
+<style> 
+h1 {
+        margin-bottom: 40px; /* sets the margin */
+  }
+
+body {
+  background-image: url('images/mail_background.jpg'); /*image path */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-size: cover; /* Makes the image cover the entire element */
+}
+h2 {
+  text-align: center;
+}
+.styled-button {
+    background-color: #94a495; /* grey */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
+.styled-button:hover {
+    background-color: #94a495; /* Darker green on hover */
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.3); /* Larger shadow on hover */
+}
+
+.styled-button:active {
+    background-color: #94a495; /* Even darker green on click */
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Smaller shadow on click */
+    transform: translateY(2px); /* Slight downward movement on click */
+}
+
+/* starts defining the pushable button by setting its properties*/
+.pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25); /* Darker shadow */
+  transform: translateY(2px); /* Initial shadow offset */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1);
+}
+/* gives the edge colors that get slightly darker for the shadow effect */
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(0deg 100% 16%) 0%,
+    hsl(0deg 100% 32%) 8%,
+    hsl(0deg 100% 32%) 92%,
+    hsl(0deg 100% 16%) 100%
+  ); /* Edge gradient */
+}
+
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+  background: hsl(0deg 100% 47%); /* Button color */
+  will-change: transform;
+  transform: translateY(-4px); /* Initial front offset */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1);
+}
+
+/* makes the button move when hovered over */
+.pushable:hover .front {
+  transform: translateY(-6px); /* Lift slightly on hover */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px); /* Push down on click */
+  transition: transform 34ms;
+}
+
+.pushable:active .shadow {
+  transform: translateY(4px); /* Push shadow down on click */
+  transition: transform 34ms;
+}
+</style>
+   <h2 style="font-size: 40px;">Post Office Cost Calculator</h2>
+  <!-- Input fields -->
+  <div style="text-align: center;">
+  <!-- each input type uses the styled-button class that was defined in the CSS styling-->
+  <input type="number" id="l" class= "styled-button" placeholder="Enter length">
+  <input type="number" id="h" class= "styled-button" placeholder="Enter height">
+  <input type="number" id="w" class= "styled-button" placeholder="Enter width">
+  <input type="number" id="your_zip" class= "styled-button" placeholder="Enter your zipcode">
+  <input type="number" id="delivery_zip" class= "styled-button" placeholder="Enter destination zicode">
+  
+  </div>
+  <h3 style="font-size: 40px; text-align: center;">
+  <!-- Button that calls the function -->
+  <!-- Calls the imported confeti function using specific spread and amount of particles-->
+  <button class="pushable" onclick="main(); confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });">
+  <!--Sets the properties of the button that were defined in the CSS style portion of code -->
+  <span class="shadow"></span>
+  <span class="edge"></span>
+  <span class="front">Calculate Cost</span>
+  </button>
+
+
+
+
+</button>
+
+
+  <!-- Area to display the result -->
+  <p id="result"></p>
+
+
+</body>
+</html>
