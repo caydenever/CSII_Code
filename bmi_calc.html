@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Mass Index Calculator</title>
+<script>
+// This function takes in the length, height, width, and thickness
+function main() {
+    // Get values from the input fields from html
+    let height = document.getElementById("height").value;
+    let weight = document.getElementById("weight").value;
+
+    // Convert the values to numbers (since inputs are strings by default)
+    height = parseFloat(height);
+    weight = parseFloat(weight);
+
+    // get the distance in between the zipcode zones
+    let weight_value = weight * 703
+    let height_value = height * height
+    let bmi = weight_value / height_value
+    // Display the result inside the <p> tag
+    // only print 2 decimlas
+    bmi = bmi.toFixed(2);
+    // telling the user what there BMI is based on if it is in between certain categories
+    if (bmi > 0 && bmi < 16){
+        document.getElementById("result").innerText = bmi + " " + "you are severly thin.";
+    }
+    else if (bmi > 16 && bmi < 17){
+        document.getElementById("result").innerText = bmi + " " + "you are moderately thin.";
+    }
+    else if (bmi > 17 && bmi < 18.5){
+    document.getElementById("result").innerText = bmi + " " + "you are mildly thin.";
+    }
+    else if (bmi > 18.5 && bmi < 25 ){
+    document.getElementById("result").innerText = bmi + " " + "you have a normal BMI.";
+    }
+    else if (bmi > 25 && bmi < 30){
+    document.getElementById("result").innerText = bmi + " " + "you are overweight.";
+    }
+    else if (bmi > 30 && bmi < 35){
+    document.getElementById("result").innerText = bmi + " " + "you are obese class 1.";
+    }
+    else if (bmi > 35 && bmi < 40){
+    document.getElementById("result").innerText = bmi + " " + "you are obses class 2.";
+    }
+    else if (bmi > 40){
+    document.getElementById("result").innerText = bmi + " " + "you are obsese class 3.";
+    }
+    // if none of these are true then print enter valid data
+    else {
+        document.getElementById("result").innerText = "please enter valid data";
+    }
+    
+
+
+}
+</script>
+</head>
+<body> 
+<header class="navbar">
+  <nav>
+    <a href="bmi_calc.html">BMI</a>
+    <a href="far_to_cel_calc.html">Farenheight to Celcius</a>
+  </nav>
+</header>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.js"></script> 
+<style> 
+.navbar {
+  position: sticky; /* Make the navbar stick to the top */
+  top: 0; /* Position it at the top of the viewport */
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* The key glassy effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle bottom border */
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+/* Base styles for the links to look like buttons */
+.navbar nav a {
+  text-decoration: none; /* Removes the default underline */
+  color: #000;          /* Sets the initial text color */
+  padding: 0.5rem 1rem; /* Gives the "button" space around the text */
+  margin-left: 10px;    /* Spaces them out from each other */
+  border-radius: 5px;   /* Softens the corners */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  font-weight: 500;     /* Makes the text slightly bolder */
+}
+
+/* Styles applied when a user hovers over a link */
+.navbar nav a:hover {
+  background-color: #5e6368; /* A nice primary blue background on hover */
+  color: #fff;             /* White text color on hover */
+  box-shadow: 0 4px 8px rgba(111, 115, 119, 0.3); /* Add a subtle shadow on hover */
+}
+h1 {
+        margin-bottom: 40px; /* sets the margin */
+  }
+
+
+body {
+            background-color: lightblue; /* You can use color names, hex codes, RGB, or HSL values */
+    }
+
+h2 {
+  text-align: center;
+}
+.styled-button {
+    background-color: #94a495; /* grey */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
+.styled-button:hover {
+    background-color: #94a495; /* Darker green on hover */
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.3); /* Larger shadow on hover */
+}
+
+.styled-button:active {
+    background-color: #94a495; /* Even darker green on click */
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Smaller shadow on click */
+    transform: translateY(2px); /* Slight downward movement on click */
+}
+
+/* starts defining the pushable button by setting its properties*/
+.pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25); /* Darker shadow */
+  transform: translateY(2px); /* Initial shadow offset */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1);
+}
+/* gives the edge colors that get slightly darker for the shadow effect */
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(0deg 100% 16%) 0%,
+    hsl(0deg 100% 32%) 8%,
+    hsl(0deg 100% 32%) 92%,
+    hsl(0deg 100% 16%) 100%
+  ); /* Edge gradient */
+}
+
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+  background: hsl(0deg 100% 47%); /* Button color */
+  will-change: transform;
+  transform: translateY(-4px); /* Initial front offset */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1);
+}
+
+/* makes the button move when hovered over */
+.pushable:hover .front {
+  transform: translateY(-6px); /* Lift slightly on hover */
+  transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px); /* Push down on click */
+  transition: transform 34ms;
+}
+
+.pushable:active .shadow {
+  transform: translateY(4px); /* Push shadow down on click */
+  transition: transform 34ms;
+}
+</style>
+   <h2 style="font-size: 40px;">Body Mass Index Calculator</h2>
+  <!-- Input fields -->
+  <div style="text-align: center;">
+  <!-- each input type uses the styled-button class that was defined in the CSS styling-->
+  <input type="number" id="height" class= "styled-button" placeholder="Enter you height (inches)">
+  <input type="number" id="weight" class= "styled-button" placeholder="Enter your weight (pounds)">
+  
+  </div>
+  <!-- allign the button center and set its size -->
+  <h3 style="font-size: 40px; text-align: center;">
+  <!-- Button that calls the function of calculating BMI -->
+  <!-- Calls the imported confeti function using specific spread and amount of particles-->
+  <button class="pushable" onclick="main(); confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });">
+  <!--Sets the properties of the button that were defined in the CSS style portion of code -->
+  <span class="shadow"></span>
+  <span class="edge"></span>
+  <span class="front">Calculate BMI</span>
+  </button>
+
+
+
+  <!-- Area to display the result -->
+  <p id="result"></p>
+
+</body>
+</html>
