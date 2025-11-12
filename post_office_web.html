@@ -1,3 +1,9 @@
+<!--
+Author: Cayden Ever
+Sources: Mr. Campbell, W3schools for Css styling and formatting functions
+Description: Returns the price it takes to ship item at the post office based on package type and zipcode. 
+Date: 11.14.25
+ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +33,7 @@
       // get the distance in between the zipcode zones
       total_distance = Math.abs(zip2 - zip1)
       // get the type of the package
-      package_type = get_size(l,h,w)
+      package_type = get_size(length,height,width)
       // calculate cost
       cost = calculate_cost(total_distance, package_type)
       
@@ -72,7 +78,7 @@ function get_size(l,h,w) {
     type = 3;
   } else if (l >= 6.125 && l <= 24 && h >= 11 && h <= 18 && w >= 0.25 && w <= 0.5) {
     type = 4;
-  } else if (l > 24 && h > 18 && w > 0.5 && (l + 2 * h + 2 * w) <= 84) {
+  } else if ((l + 2 * h + 2 * w) <= 84) {
     type = 5;
   } else if ((l + 2 * h + 2 * w) > 84 && (l + 2 * h + 2 * w) <= 130) {
     type = 6;
