@@ -1,3 +1,9 @@
+'''
+Author: Cayden Ever
+Sources: Mr. Campbell, Titanic.Csv, W3schools for read/write
+Description: Analyzes data from the Titanic crash dataset.
+Date: 12.19.25
+'''
 import csv
 import sys
 import os
@@ -347,3 +353,4 @@ def main():
             family_survival_patterns(rows)
 
 main()
+
