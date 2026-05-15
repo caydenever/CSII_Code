@@ -1,3 +1,10 @@
+'''
+Author: Cayden Ever
+Sources: instruction sheet
+Description: Allows user to play battleship against the computer
+Date: 5.15.2026
+Bugs: n
+'''
 def factorial(n):
     '''
     calculates the factorial of n
